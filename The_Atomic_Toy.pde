@@ -1,5 +1,5 @@
 import com.hamoid.*;
-int R = 5;
+int R = 10;
 Field F;
 ArrayList<Particle>parts;
 Boolean grid=false;
