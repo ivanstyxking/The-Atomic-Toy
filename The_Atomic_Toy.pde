@@ -76,7 +76,7 @@ class Field {
   }
   void initMatrixVectors() {
     Ematrix = set(Ematrix);
-    Gmatrix = set(Ematrix);
+    Gmatrix = set(Gmatrix);
   }
   void render() {
     stroke(1);
@@ -84,14 +84,16 @@ class Field {
       for (int j=0; j<Ematrix[0].length-1; j++) {
         float mag = sroot((Ematrix[i][j].mag()));
         if (grid) {
-          stroke(map(abs(mag), 0, 7, 0.92, 0.6), 1, map(abs(mag), 0, 7, 0, 1), 0.8);
-          line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i+1)+sroot(Ematrix[i+1][j].x), R*j+sroot(Ematrix[i+1][j].y));
-          line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i)+sroot(Ematrix[i][j+1].x), R*(j+1)+sroot(Ematrix[i+1][j].y));
+          if(mag>1){
+            stroke(map(abs(mag), 0, 7, 0.92, 0.6), 1, 1,map(abs(mag), 0, 7, 0, 1));
+            line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i+1)+sroot(Ematrix[i+1][j].x), R*j+sroot(Ematrix[i+1][j].y));
+            line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i)+sroot(Ematrix[i][j+1].x), R*(j+1)+sroot(Ematrix[i+1][j].y));
+          }
         }
         if (vector) {
           strokeWeight(0.5);
           stroke(map(Ematrix[i][j].heading(), -PI, PI, 0.55, 0.85), 1, 1, map(mag, 0, 10, 0.9, 0.1));
-          line(R*i, R*j, R*i+3*sroot(Ematrix[i][j].x), R*j+3*sroot(Ematrix[i][j].y));
+          line(R*i, R*j, R*i+R*(cos(Ematrix[i][j].heading())), R*j+R*(sin(Ematrix[i][j].heading())));
           strokeWeight(1);
         }
       }
