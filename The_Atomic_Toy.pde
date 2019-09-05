@@ -24,7 +24,7 @@ void setup() {
 void draw() {
   updateAndRender();
   UI();
-  videoExport.saveFrame();
+  //videoExport.saveFrame();
 }
 void updateAndRender() {
   background(0);
@@ -207,10 +207,10 @@ class Particle {
   }
 }
 void keyPressed() { 
-  if (key == 'q') {
-    videoExport.endMovie();
-    exit();
-  }
+  //if (key == 'q') {
+  //  videoExport.endMovie();
+  //  exit();
+  //}
   if (key=='g'||key=='G') {
     grid=!grid;
   }
