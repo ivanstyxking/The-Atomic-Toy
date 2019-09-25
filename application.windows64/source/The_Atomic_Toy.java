@@ -3,8 +3,6 @@ import processing.data.*;
 import processing.event.*; 
 import processing.opengl.*; 
 
-import com.hamoid.*; 
-
 import java.util.HashMap; 
 import java.util.ArrayList; 
 import java.io.File; 
@@ -16,7 +14,7 @@ import java.io.IOException;
 
 public class The_Atomic_Toy extends PApplet {
 
-
+//import com.hamoid.*;
 int R = 10;
 Field F;
 ArrayList<Particle>parts;
@@ -29,15 +27,15 @@ float spawnMass = 0.5f;
 int Width = 1920;
 int Height = 1080;
 //-------------------preferences
-VideoExport videoExport;
+//VideoExport videoExport;
 public void setup() {
-  videoExport = new VideoExport(this);
+  //videoExport = new VideoExport(this);
   colorMode(HSB, 1);
   
   F = new Field();
   parts = new ArrayList<Particle>();
   frameRate(60);
-  videoExport.startMovie();
+  //videoExport.startMovie();
 }
 public void draw() {
   updateAndRender();
@@ -94,7 +92,7 @@ class Field {
   }
   public void initMatrixVectors() {
     Ematrix = set(Ematrix);
-    Gmatrix = set(Ematrix);
+    Gmatrix = set(Gmatrix);
   }
   public void render() {
     stroke(1);
@@ -102,14 +100,16 @@ class Field {
       for (int j=0; j<Ematrix[0].length-1; j++) {
         float mag = sroot((Ematrix[i][j].mag()));
         if (grid) {
-          stroke(map(abs(mag), 0, 7, 0.92f, 0.6f), 1, map(abs(mag), 0, 7, 0, 1), 0.8f);
-          line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i+1)+sroot(Ematrix[i+1][j].x), R*j+sroot(Ematrix[i+1][j].y));
-          line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i)+sroot(Ematrix[i][j+1].x), R*(j+1)+sroot(Ematrix[i+1][j].y));
+          if(mag>1){
+            stroke(map(abs(mag), 0, 7, 0.92f, 0.6f), 1, 1,map(abs(mag), 0, 7, 0, 1));
+            line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i+1)+sroot(Ematrix[i+1][j].x), R*j+sroot(Ematrix[i+1][j].y));
+            line(R*i+sroot(Ematrix[i][j].x), R*j+sroot(Ematrix[i][j].y), R*(i)+sroot(Ematrix[i][j+1].x), R*(j+1)+sroot(Ematrix[i+1][j].y));
+          }
         }
         if (vector) {
           strokeWeight(0.5f);
           stroke(map(Ematrix[i][j].heading(), -PI, PI, 0.55f, 0.85f), 1, 1, map(mag, 0, 10, 0.9f, 0.1f));
-          line(R*i, R*j, R*i+3*sroot(Ematrix[i][j].x), R*j+3*sroot(Ematrix[i][j].y));
+          line(R*i, R*j, R*i+R*(cos(Ematrix[i][j].heading())), R*j+R*(sin(Ematrix[i][j].heading())));
           strokeWeight(1);
         }
       }
@@ -247,7 +247,7 @@ public void keyPressed() {
   }
 }
 //programmed by u/therocketeer1|Processing 3.2.3
-  public void settings() {  fullScreen(OPENGL); }
+  public void settings() {  size(1280,720,OPENGL); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "The_Atomic_Toy" };
     if (passedArgs != null) {

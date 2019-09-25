@@ -1,4 +1,4 @@
-import com.hamoid.*;
+//import com.hamoid.*;
 int R = 10;
 Field F;
 ArrayList<Particle>parts;
@@ -11,15 +11,15 @@ float spawnMass = 0.5;
 int Width = 1920;
 int Height = 1080;
 //-------------------preferences
-VideoExport videoExport;
+//VideoExport videoExport;
 void setup() {
-  videoExport = new VideoExport(this);
+  //videoExport = new VideoExport(this);
   colorMode(HSB, 1);
-  fullScreen(OPENGL);
+  size(1280,720,OPENGL);
   F = new Field();
   parts = new ArrayList<Particle>();
   frameRate(60);
-  videoExport.startMovie();
+  //videoExport.startMovie();
 }
 void draw() {
   updateAndRender();
